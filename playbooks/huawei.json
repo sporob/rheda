@@ -1,0 +1,38 @@
+{
+  "@type": "tmf:ServiceOrder",
+  "description": "Service order to set the lock state of a RAN base station.",
+  "status": "Submitted",
+  "serviceOrderItem": [
+    {
+      "@type": "tmf:ServiceOrderItem",
+      "action": "apply",
+      "service": {
+        "@type": "tmf:ServiceTemplate",
+        "name": "Lock / unlock RAN Base Station",
+        "serviceSpecification": {
+          "@type": "tmf:ServiceSpecification",
+          "name": "Lock / unlock RAN Base Station",
+          "serviceSpecCharacteristic": [
+            {
+              "name": "Base Station ID",
+              "value": "5G SA Technolab_32"
+            },
+            {
+              "name": "Managing EMS ID",
+              "value": ""
+            },
+            {
+              "name": "Locked",
+              "value": true
+            },
+            {
+              "name": "Vendor",
+              "value": "HUAWEI"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+

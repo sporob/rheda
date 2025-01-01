@@ -1,0 +1,26 @@
+---
+- name: Listen for events on a webhook
+  hosts: all
+
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 8099
+
+#  rules:
+#    - name: Say thank you
+#      condition: event.payload.message == "42"
+#      action:
+#        run_playbook:
+#          name: playbooks/demo.yml
+
+  rules:
+    - name: Say thank you
+      condition: event.payload.message == "42"
+      action:
+        run_job_template:
+          name: c3peda-template-demo
+          organization: Default
+          job_args:
+            extra_vars:
+              event: "{{ event }}"
