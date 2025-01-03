@@ -1,0 +1,51 @@
+---
+- name: Using a REST API
+  become: false
+  hosts: localhost
+  gather_facts: false
+  vars:
+    accesstoken: tests
+  tasks:
+    - debug:
+        msg: “Call API”
+
+    - name: C3P GET TOKEN API
+      uri:
+        url: https://3.87.126.25:8085/realms/techmc3p/protocol/openid-connect/token  
+        method: POST
+        validate_certs: False
+        headers:
+          Content-Type: 'application/x-www-form-urlencoded'
+            #grant_type: 'client_credentials'
+            #client_id: 'c3ptestclient01'
+            #client_secret: 'Yatw0acaggd17HT9zV6JTERxZ3GMOaGL' 
+            #url_username: "userdev"
+            #url_password: "idontknow"
+        #body_format: form-urlencoded
+        body: "grant_type=client_credentials&client_id=c3ptestclient01&client_secret=Yatw0acaggd17HT9zV6JTERxZ3GMOaGL"
+      register: results
+
+    - debug:
+          var: results.json.access_token
+          #accesstoken: results.json.access_token
+          #var: results
+      #var: results.json.value
+    - name: C3P DEVICE CONFIG PUSH API
+      uri:
+        url: http://3.87.126.25:5000/c3p-p-core/api/ext/snow/incident/actions 
+        method: POST
+        validate_certs: False
+        headers:
+          Content-Type: 'application/json'
+            #Authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5bjc0OVpPNlFRdWZta182TGdhVmVjdy1uakwzcmJEakRreUVpZkNjbTM0In0.eyJleHAiOjE3MzUxOTMwNDAsImlhdCI6MTczNTE5MjQ0MCwianRpIjoiNjc4YjI5NGQtZDE3MS00M2NiLTg5MDEtMDQ5YTA5NzM3ZTc5IiwiaXNzIjoiaHR0cHM6Ly8zLjg3LjEyNi4yNTo4MDg1L3JlYWxtcy90ZWNobWMzcCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzYjk1MmM4OS03NjFiLTRkODEtODE3ZC00M2Q5YTQyY2Y0YmYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjM3B0ZXN0Y2xpZW50MDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtdGVjaG1jM3AiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImNsaWVudEhvc3QiOiIzLjgxLjE0MS4yNTEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1jM3B0ZXN0Y2xpZW50MDEiLCJjbGllbnRBZGRyZXNzIjoiMy44MS4xNDEuMjUxIiwiY2xpZW50X2lkIjoiYzNwdGVzdGNsaWVudDAxIn0.ErqI7BYe0lrOT-HEs4154LEStiK09WHn4EnWSq3FrUbGdS0RZOG3VOCD6kdCWOBvR6flIG4M33i6M7Dn9gkjEBrLytqHudC4rdXZpQjtxqqM1Tydo1eZ2ct926ZuluHyo1LjCiH7NMJm_8oEyJiZetUZ7zmJCQWf5ga9jDOxejBD-749C4HorBU7_vLcZZcxz8bKfVuGs_BkvwOjuA7c_taoS0ddEFivSRbnp7Vq7C70EwiUXKDB0r1Xnd7bnweiKQy9csYCzWXfKNp2fKA3Zto0t1HCz8SpPxotz2XZ1H7nnqgsdfzMwavH28ZRX1Ceo_99xeewYIuT1RcwSzPt9w"  
+        #body_format: form-urlencoded
+          Authorization: "Bearer {{ results.json.access_token }}"
+        body_format: json
+        timeout: 200
+        body: "{{ lookup('file','merakiapi1.json') }}" 
+      register: results1
+
+    - debug:
+          #var: results.json.access_token
+          var: results1.json
+

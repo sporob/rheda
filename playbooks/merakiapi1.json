@@ -1,0 +1,18 @@
+{
+    "Incident": "INC0010851",
+    "caller": "opsramp",
+    "category": "network",
+    "subcategory": "Switch",
+    "configuration_item": "TMIND-PUN-MS-ACC-01",
+    "short_description": "OpsRamp -  {portNum=14, slot=null, moduq2q2leType=null, description=Switch port is up at 1 Gbps, status=1 Gbps, prevStatus=down, portDesc=TMIND-PUN-MS-ACC-01 / 15 }",
+    "description": "Switch port connected {portNum=14, slot=null, moduleType=null, description=Switch port is up at 1 Gbps, status=1 Gbps, prevStatus=down, portDesc=TMIND-PUN-MS-ACC-01 / 15 (WAP-MR 36) Trunk port on VLAN 599}, Resources  TMIND-PUN-MS-ACC-01",
+    "Business service": null,
+    "Service offering": null,
+    "Channel": null,
+    "State": "1",
+    "Impact": "3",
+    "Urgency": "3",
+    "Priority": "5",
+    "Assignment_group": null,
+    "Assigned_to": null
+}
